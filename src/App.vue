@@ -12,7 +12,7 @@
             </el-row>
         </el-header>
         <el-container style="min-height:600px;">
-            <el-aside width="200px" style="min-height:100%"> 
+            <el-aside width="200px" style="min-height:100%;"> 
                 <el-menu style="min-height: 100%;" router :collapse="isCollapse">
                     <el-menu-item index="/">
                         <i class="el-icon-menu"></i>
@@ -24,7 +24,7 @@
                             <span>设置</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="home1">设置1</el-menu-item>
+                            <el-menu-item index="setting">设置1</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
