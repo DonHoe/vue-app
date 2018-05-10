@@ -1,6 +1,49 @@
 <template>
     <div>
-        <el-button @click="getData()">默认按钮</el-button>
+      <el-row :gutter="5">
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-tag>本日完成率</el-tag>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-tag type="success">本周完成率</el-tag>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-tag type="info">月度指标</el-tag>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-tag type="warning">季度指标</el-tag>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="5">
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-progress type="circle" :percentage="25"></el-progress>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-progress type="circle" :percentage="80" color="#8e71c7"></el-progress>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-progress type="circle" :percentage="100" status="success"></el-progress>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="tagreport">
+            <el-progress type="circle" :percentage="50" status="exception"></el-progress>
+          </div>
+        </el-col>
+      </el-row>
     </div>
 </template>
 <script>
@@ -22,3 +65,9 @@ export default {
   }
 };
 </script>
+<style>
+.tagreport {
+  text-align: center;
+  margin-top: 10px;
+}
+</style>
