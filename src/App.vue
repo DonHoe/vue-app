@@ -4,10 +4,11 @@
         <el-header style="background: #20a0ff;">
             <el-row>
                 <el-col :span="20">
-                    <div style="color:#fff;font-size:34px;">Manage</div>
+                    <div style="color:#fff;font-size:34px;height:60px;">Manage</div>
                 </el-col>
                 <el-col :span="4">
-                    <div></div>                    
+                    <div style="height:60px;">
+                    </div>                    
                 </el-col>
             </el-row>
         </el-header>
@@ -20,6 +21,15 @@
                     </el-menu-item>
                     <el-submenu index="1">
                         <template slot="title">
+                            <i class="el-icon-tickets"></i>
+                            <span>信息</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="zhihu">问答</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
                             <i class="el-icon-setting"></i>
                             <span>设置</span>
                         </template>
@@ -29,7 +39,7 @@
                     </el-submenu>
                 </el-menu>
             </el-aside>
-            <el-main style="min-height:100%">
+            <el-main style="min-height:100%;">
                 <keep-alive>
                     <router-view/>
                 </keep-alive>

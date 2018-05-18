@@ -30,17 +30,17 @@
         </el-col>
         <el-col :span="6">
           <div class="tagreport">
-            <el-progress type="circle" :percentage="80" color="#8e71c7"></el-progress>
+            <el-progress type="circle" :percentage="80"></el-progress>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="tagreport">
-            <el-progress type="circle" :percentage="100" status="success"></el-progress>
+            <el-progress type="circle" :percentage="90"></el-progress>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="tagreport">
-            <el-progress type="circle" :percentage="50" status="exception"></el-progress>
+            <el-progress type="circle" :percentage="50"></el-progress>
           </div>
         </el-col>
       </el-row>

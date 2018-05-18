@@ -15,6 +15,17 @@ Vue.prototype.$ajax = axios
 
 Vue.use(ElementUI)
 
+
+Vue.component("v-search",{
+    template:'<div style="padding: 10px 0 0 10px;"><slot></slot></div>',
+    props:["title"],
+    methods: {
+        search: function () {
+            this.$emit('search');
+        }
+    }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -22,3 +33,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
