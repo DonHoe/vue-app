@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Components from './components/index.js'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -16,21 +17,13 @@ Vue.prototype.$ajax = axios
 Vue.use(ElementUI)
 
 
-Vue.component("v-search",{
-    template:'<div style="padding: 10px 0 0 10px;"><slot></slot></div>',
-    props:["title"],
-    methods: {
-        search: function () {
-            this.$emit('search');
-        }
-    }
-})
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: { App,Components },
   template: '<App/>'
 })
 

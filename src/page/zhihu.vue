@@ -8,7 +8,7 @@
         </div>
         <div>
             <v-search>
-                <el-form :inline="true" :model="search" size="mini" label-width="100px">
+                <el-form :inline="true" :model="searchModel" size="mini" label-width="100px">
                     <el-form-item label="标题">
                         <el-input v-model="search.title" class="input" ></el-input>
                     </el-form-item>
@@ -28,7 +28,14 @@
             </v-search>
         </div>
         <div>
-            
+            <el-table :data="list" border stripe>
+                <el-table-column prop="id" label="Id"></el-table-column>
+                <el-table-column prop="name" label="名字"></el-table-column>
+                <el-table-column prop="region" label="区域"></el-table-column>
+                <el-table-column prop="province" label="省份"></el-table-column>
+                <el-table-column prop="city" label="城市"></el-table-column>
+                <el-table-column prop="cdate" label="日期"></el-table-column>
+            </el-table>
         </div>
     </div>
 </template>
@@ -36,13 +43,28 @@
 export default {
   data() {
     return {
-      search: {
+      searchModel: {
         title: "",
-        content:"",
-        startDate:"",
-        endDate:""
-      }
+        content: "",
+        startDate: "",
+        endDate: ""
+      },
+      list: []
     };
+  },
+  methods: {
+    search: function() {
+      var that = this;
+      this.$ajax
+        .get("/api/getData")
+        .then(function(response) {
+          that.list = response.data.list;
+          console.log(response);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
   }
 };
 </script>
