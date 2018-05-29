@@ -1,12 +1,12 @@
 <template>
-    <div class="search-panel">
+    <div class="sc-search-panel">
         <slot></slot>
     </div>
 </template>
 
 <script>
 export default {
-  name: "v-search",
+  name: "sc-search",
   data() {
     return {};
   },
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-.search-panel {
+.sc-search-panel {
   padding: 20px 10px 5px 10px;
   border-radius: 5px;
   border: 1px solid;

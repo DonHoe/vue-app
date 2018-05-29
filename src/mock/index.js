@@ -10,7 +10,8 @@ export default {
             'province':'@province',
             'city':'@city',
             'cdate':'@datetime("yyyy-MM-dd HH:mm:ss")'
-        }]
+        }],
+        'count|11-49':1
     });
   }
 };

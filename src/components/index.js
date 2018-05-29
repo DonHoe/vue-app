@@ -1,8 +1,8 @@
-import VSearch from './VSearch.vue';
+import SCSearch from './SCSearch.vue';
 import Vue from 'vue';
 
 
-Vue.component('v-search', VSearch);
+Vue.component('sc-search', SCSearch);
 
 
 export default {
