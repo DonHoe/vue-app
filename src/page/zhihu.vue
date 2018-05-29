@@ -27,15 +27,20 @@
                 </el-form>
             </v-search>
         </div>
-        <div>
-            <el-table :data="list" border stripe>
-                <el-table-column prop="id" label="Id"></el-table-column>
-                <el-table-column prop="name" label="名字"></el-table-column>
-                <el-table-column prop="region" label="区域"></el-table-column>
-                <el-table-column prop="province" label="省份"></el-table-column>
-                <el-table-column prop="city" label="城市"></el-table-column>
-                <el-table-column prop="cdate" label="日期"></el-table-column>
-            </el-table>
+        <div style="margin-top: 20px;">
+            <div>
+                <el-table :data="list" border stripe>
+                    <el-table-column prop="id" label="Id"></el-table-column>
+                    <el-table-column prop="name" label="名字"></el-table-column>
+                    <el-table-column prop="region" label="区域"></el-table-column>
+                    <el-table-column prop="province" label="省份"></el-table-column>
+                    <el-table-column prop="city" label="城市"></el-table-column>
+                    <el-table-column prop="cdate" label="日期"></el-table-column>
+                </el-table>
+            </div>
+            <div style="text-align: right;">
+                <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="count" :page-sizes="mPageSizes" :page-size="mCurrPageSize"></el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -49,7 +54,10 @@ export default {
         startDate: "",
         endDate: ""
       },
-      list: []
+      list: [],
+      count: 10,
+      mCurrPageSize,
+      mPageSizes
     };
   },
   methods: {
@@ -59,6 +67,7 @@ export default {
         .get("/api/getData")
         .then(function(response) {
           that.list = response.data.list;
+          that.count = response.data.list.count;
           console.log(response);
         })
         .catch(function(err) {

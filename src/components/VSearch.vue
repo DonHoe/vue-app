@@ -18,7 +18,7 @@ export default {
 
 <style>
 .search-panel {
-  padding: 10px;
+  padding: 20px 10px 5px 10px;
   border-radius: 5px;
   border: 1px solid;
   margin-top: 17px;
