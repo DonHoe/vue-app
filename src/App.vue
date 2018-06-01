@@ -15,7 +15,7 @@
         <el-container style="min-height:600px;">
             <el-aside width="200px" style="min-height:100%;"> 
                 <el-menu style="min-height: 100%;" router :collapse="isCollapse">
-                    <el-menu-item index="/">
+                    <el-menu-item index="home">
                         <i class="el-icon-menu"></i>
                         <span slot="title">首页</span>
                     </el-menu-item>
