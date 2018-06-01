@@ -23,7 +23,9 @@
                         <el-date-picker v-model="searchModel.endDate" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间">
                         </el-date-picker>
                     </el-form-item>
-                    <el-button @click="search" size="mini">查询</el-button>
+                    <el-form-item>
+                        <el-button @click="search" size="mini">查询</el-button>
+                    </el-form-item>
                 </el-form>
             </sc-search>
         </div>
@@ -68,6 +70,10 @@ export default {
       mCurrPageSize:10,
       mCurrPage:1
     };
+  },
+  created:function(){
+      var that = this;
+      that.search();
   },
   methods: {
     search: function() {

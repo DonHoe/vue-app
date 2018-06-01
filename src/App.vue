@@ -26,6 +26,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="zhihu">问答</el-menu-item>
+                            <el-menu-item index="chart">报表</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
