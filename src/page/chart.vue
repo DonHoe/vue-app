@@ -12,14 +12,8 @@
                     <span slot="label"><i class="el-icon-date"></i> 组别统计</span>
                     <div id="item1" :style="{width: '950px',height: '500px'}"></div>
                 </el-tab-pane>
-                <el-tab-pane label="年度统计">
-                    <div id="item2" style="width: 100%;min-height: 600px;"></div>
-                </el-tab-pane>
-                <el-tab-pane label="角色管理">
-                    <div id="item3" style="width: 100%;min-height: 600px;"></div>
-                </el-tab-pane>
-                <el-tab-pane label="定时任务">
-                    <div id="item4" style="width: 100%;min-height: 600px;"></div>
+                <el-tab-pane label="区域统计">
+                    <div id="item2" :style="{width: '950px',height: '500px'}"></div>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -43,8 +37,6 @@ export default {
     drawChart: function() {
       var chart1 = echarts.init(document.getElementById("item1"));
       var chart2 = echarts.init(document.getElementById("item2"));
-      var chart3 = echarts.init(document.getElementById("item3"));
-      var chart4 = echarts.init(document.getElementById("item4"));
       var option1 = {
         title: {
           text: "各组任务完成量"
@@ -107,7 +99,44 @@ export default {
           }
         ]
       };
+      var option2 = {
+        title: {
+          text: "区域",
+          subtext: "纯属虚构",
+          x: "center"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c}"
+        },
+        legend: {
+          type: "scroll",
+          orient: "vertical",
+          right: 10,
+          top: 20,
+          bottom: 20,
+          data: ["华北", "东北", "华东", "华南", "西南", "西北", "华中"],
+          selected: "华东"
+        },
+        series: [
+          {
+            name: "区域",
+            type: "pie",
+            radius: "55%",
+            center: ["40%", "50%"],
+            data: [{name:"华北",value:22}, {name:"东北",value:12}, {name:"华东",value:42}, {name:"华南",value:24}, {name:"西南",value:12}, {name:"西北",value:28}, {name:"华中",value:32}],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
+              }
+            }
+          }
+        ]
+      };
       chart1.setOption(option1);
+      chart2.setOption(option2);
     }
   }
 };
