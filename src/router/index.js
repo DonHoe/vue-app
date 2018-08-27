@@ -5,6 +5,7 @@ import setting from '../page/setting.vue'
 import zhihu from '../page/zhihu.vue'
 import chart from '../page/chart.vue'
 import login from '../page/login.vue'
+import log from '../page/log.vue'
 
 Vue.use(Router)
 var routerList = [{
@@ -23,6 +24,11 @@ var routerList = [{
     {
       path: '/zhihu',
       component: zhihu,
+      name: ''
+    },
+    {
+      path: '/log',
+      component: log,
       name: ''
     },
     {
