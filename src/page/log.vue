@@ -17,7 +17,14 @@
                     </el-form-item>
 
                     <el-form-item label="日志级别">
-                        <el-input v-model="searchModel.levelString" class="input" ></el-input>
+                        <el-select v-model="searchModel.levelString" clearable = "true" placeholder="请选择">
+                            <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                            </el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="过滤1">
                         <el-input v-model="searchModel.arg1" class="input" ></el-input>
@@ -32,11 +39,11 @@
                         <el-input v-model="searchModel.arg4" class="input" ></el-input>
                     </el-form-item>
                     <el-form-item label="开始时间">
-                        <el-date-picker v-model="searchModel.startDate" type="datetime" value-format="timestamp" placeholder="选择日期时间">
+                        <el-date-picker v-model="searchModel.startTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="结束时间">
-                        <el-date-picker v-model="searchModel.endDate" type="datetime" value-format="timestamp" placeholder="选择日期时间">
+                        <el-date-picker v-model="searchModel.endTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item>
@@ -49,7 +56,11 @@
             <div>
                 <el-table :data="list" tooltip-effect="light" border stripe size="small">
                     <el-table-column prop="timestmp" width="150px" label="时间"></el-table-column>
-                    <el-table-column prop="levelString" width="80px" label="日志级别"></el-table-column>
+                    <el-table-column width="85px" label="日志级别">
+                        <template slot-scope="scope">
+                            <el-tag type="success">{{scope.row.levelString}}</el-tag>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="formattedMessage" :show-overflow-tooltip="true" label="日志消息"></el-table-column>
                     <el-table-column prop="callerClass" :show-overflow-tooltip="true" width="300px" label="类名"></el-table-column>
                     <el-table-column prop="callerMethod" :show-overflow-tooltip="true" width="150px" label="方法名"></el-table-column>
@@ -75,6 +86,28 @@ var baseUrl = "http://localhost:8080/";
 export default {
   data() {
     return {
+      options: [
+        {
+          value: "DEBUG",
+          label: "DEBUG"
+        },
+        {
+          value: "INFO",
+          label: "INFO"
+        },
+        {
+          value: "WARN",
+          label: "WARN"
+        },
+        {
+          value: "ERROR",
+          label: "ERROR"
+        },
+        {
+          value: "FATAL",
+          label: "FATAL"
+        }
+      ],
       searchModel: {
         callerClass: "",
         callerMethod: "",
@@ -83,14 +116,14 @@ export default {
         arg2: "",
         arg3: "",
         arg4: "",
-        startDate: "",
-        endDate: "",
+        startTime: "",
+        endTime: "",
         page: 1,
         row: 50
       },
       list: [],
       totalRecords: 0,
-      mCurrPageSize: 10,
+      mCurrPageSize: 50,
       mCurrPage: 1
     };
   },
@@ -113,6 +146,10 @@ export default {
         .catch(function(err) {
           console.log(err);
         });
+    },
+    getLogLevelStyle(level) {
+      var style = "";
+      return style;
     },
     pageChange: function() {
       var that = this;
