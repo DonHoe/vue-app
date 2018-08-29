@@ -15,7 +15,14 @@
                     <el-form-item label="方法">
                         <el-input v-model="searchModel.callerMethod" class="input" ></el-input>
                     </el-form-item>
-
+                    <el-form-item label="开始时间">
+                        <el-date-picker v-model="searchModel.startTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="结束时间">
+                        <el-date-picker v-model="searchModel.endTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
+                        </el-date-picker>
+                    </el-form-item>
                     <el-form-item label="日志级别">
                         <el-select v-model="searchModel.levelString" clearable = "true" placeholder="请选择">
                             <el-option
@@ -38,14 +45,7 @@
                     <el-form-item label="过滤4">
                         <el-input v-model="searchModel.arg4" class="input" ></el-input>
                     </el-form-item>
-                    <el-form-item label="开始时间">
-                        <el-date-picker v-model="searchModel.startTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
-                        </el-date-picker>
-                    </el-form-item>
-                    <el-form-item label="结束时间">
-                        <el-date-picker v-model="searchModel.endTime" type="datetime" value-format="timestamp" placeholder="选择日期时间">
-                        </el-date-picker>
-                    </el-form-item>
+
                     <el-form-item>
                         <el-button @click="search" size="mini">查询</el-button>
                     </el-form-item>
