@@ -24,7 +24,7 @@
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="日志级别">
-                        <el-select v-model="searchModel.levelString" clearable = "true" placeholder="请选择">
+                        <el-select v-model="searchModel.levelString" :clearable = "true" placeholder="请选择">
                             <el-option
                             v-for="item in options"
                             :key="item.value"
@@ -58,7 +58,7 @@
                     <el-table-column prop="timestmp" width="150px" label="时间"></el-table-column>
                     <el-table-column width="85px" label="日志级别">
                         <template slot-scope="scope">
-                            <el-tag type="success">{{scope.row.levelString}}</el-tag>
+                            <el-tag v-bind:type="logLevelStyle[scope.row.levelString]">{{scope.row.levelString}}</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column prop="formattedMessage" :show-overflow-tooltip="true" label="日志消息"></el-table-column>
@@ -108,6 +108,13 @@ export default {
           label: "FATAL"
         }
       ],
+      logLevelStyle: {
+        DEBUG: "success",
+        INFO: "",
+        WARN: "warning",
+        ERROR: "danger",
+        FATAL: "danger"
+      },
       searchModel: {
         callerClass: "",
         callerMethod: "",
@@ -146,10 +153,6 @@ export default {
         .catch(function(err) {
           console.log(err);
         });
-    },
-    getLogLevelStyle(level) {
-      var style = "";
-      return style;
     },
     pageChange: function() {
       var that = this;
