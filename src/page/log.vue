@@ -54,7 +54,7 @@
         </div>
         <div style="margin-top: 20px;">
             <div>
-                <el-table :data="list" tooltip-effect="light" border stripe size="small">
+                <el-table :data="list" v-loading="loading" tooltip-effect="light" border stripe size="small">
                     <el-table-column prop="timestmp" width="150px" label="时间"></el-table-column>
                     <el-table-column width="85px" label="日志级别">
                         <template slot-scope="scope">
@@ -131,7 +131,8 @@ export default {
       list: [],
       totalRecords: 0,
       mCurrPageSize: 50,
-      mCurrPage: 1
+      mCurrPage: 1,
+      loading: false
     };
   },
   created: function() {
@@ -143,15 +144,18 @@ export default {
       var queryModel = Object.assign({}, that.searchModel);
       queryModel.page = that.mCurrPage;
       queryModel.row = that.mCurrPageSize;
-      console.log(queryModel);
+      //console.log(queryModel);
+      that.loading = true;
       this.$ajax
         .get(baseUrl + "log/getList", { params: queryModel })
         .then(function(response) {
           that.list = response.data.result.list;
           that.totalRecords = response.data.result.total;
+          that.loading = false;
         })
         .catch(function(err) {
           console.log(err);
+          that.loading = false;
         });
     },
     pageChange: function() {
