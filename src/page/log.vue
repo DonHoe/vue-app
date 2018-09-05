@@ -67,7 +67,7 @@
                     <el-table-column prop="callerLine" width="50px" label="行数"></el-table-column>
                     <el-table-column width="80px"  label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini">详情</el-button>
+                            <el-button size="mini" @click="showLogDetail(scope.row)">详情</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -78,6 +78,23 @@
                 @size-change="changeSize" @current-change="changeCurrent">
                 </el-pagination>
             </div>
+        </div>
+        <div>
+            <el-dialog title="日志明细" :visible.sync="dialogDetailVisible">
+                <div>
+                    <el-row class="logRow" v-for="(logItem,logKey) in logDetail" :key="logKey">
+                        <el-col :span="4">
+                            {{ logKey }}:
+                        </el-col>
+                        <el-col v-if="logKey=='formattedMessage'" :span="20">
+                            <pre>{{ logItem }}</pre>
+                        </el-col>
+                        <el-col v-else :span="20">
+                            {{ logItem }}
+                        </el-col>
+                    </el-row>
+                </div>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -132,7 +149,9 @@ export default {
       totalRecords: 0,
       mCurrPageSize: 50,
       mCurrPage: 1,
-      loading: false
+      loading: false,
+      dialogDetailVisible: false,
+      logDetail: {}
     };
   },
   created: function() {
@@ -171,8 +190,35 @@ export default {
       var that = this;
       that.mCurrPage = val;
       that.pageChange();
+    },
+    showLogDetail: function(val) {
+      var that = this;
+      console.log(val);
+      that.logDetail = val;
+      that.dialogDetailVisible = true;
     }
   }
 };
 </script>
+<style>
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.logRow {
+  border-bottom-style: solid;
+  border-width: thin;
+  border-color: #bebebe;
+}
+</style>
 
