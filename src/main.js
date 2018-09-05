@@ -8,12 +8,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import MockData from './mock/index.js'
 import axios from 'axios'
+import Vuex from 'vuex'
 
 MockData.bootstrap();
 
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
-
+Vue.use(Vuex)
 Vue.use(ElementUI)
 
 // router.beforeEach((to, from, next) => {

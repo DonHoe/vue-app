@@ -54,8 +54,8 @@
         </div>
         <div style="margin-top: 20px;">
             <div>
-                <el-table :data="list" v-loading="loading" tooltip-effect="light" border stripe size="small">
-                    <el-table-column prop="timestmp" width="150px" label="时间"></el-table-column>
+                <el-table :data="list" v-loading="loading" tooltip-effect="light" border stripe size="mini">
+                    <el-table-column prop="timestmp" width="165px" label="时间"></el-table-column>
                     <el-table-column width="85px" label="日志级别">
                         <template slot-scope="scope">
                             <el-tag v-bind:type="logLevelStyle[scope.row.levelString]">{{scope.row.levelString}}</el-tag>
@@ -65,9 +65,9 @@
                     <el-table-column prop="callerClass" :show-overflow-tooltip="true" width="300px" label="类名"></el-table-column>
                     <el-table-column prop="callerMethod" :show-overflow-tooltip="true" width="150px" label="方法名"></el-table-column>
                     <el-table-column prop="callerLine" width="50px" label="行数"></el-table-column>
-                    <el-table-column width="80px"  label="操作">
+                    <el-table-column width="50px"  label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="showLogDetail(scope.row)">详情</el-button>
+                            <el-button size="mini" type="text" @click="showLogDetail(scope.row)">详情</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -173,7 +173,6 @@ export default {
           that.loading = false;
         })
         .catch(function(err) {
-          console.log(err);
           that.loading = false;
         });
     },
@@ -193,7 +192,6 @@ export default {
     },
     showLogDetail: function(val) {
       var that = this;
-      console.log(val);
       that.logDetail = val;
       that.dialogDetailVisible = true;
     }
@@ -204,7 +202,7 @@ export default {
 pre {
   display: block;
   padding: 9.5px;
-  margin: 0 0 10px;
+  margin: 5px;
   font-size: 13px;
   line-height: 1.42857143;
   color: #333;

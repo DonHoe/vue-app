@@ -4,7 +4,7 @@
         <el-header style="background: #20a0ff;">
             <el-row>
                 <el-col :span="20">
-                    <div style="color:#fff;font-size:34px;height:60px;">Manage</div>
+                    <div style="color:#fff;font-size:34px;height:50px;">Manage</div>
                 </el-col>
                 <el-col :span="4">
                     <div style="height:60px;">
@@ -13,7 +13,7 @@
             </el-row>
         </el-header>
         <el-container style="min-height:600px;">
-            <el-aside width="200px" style="min-height:100%;"> 
+            <el-aside width="150px" style="min-height:100%;"> 
                 <el-menu style="min-height: 100%;" router :collapse="isCollapse">
                     <el-menu-item index="home">
                         <i class="el-icon-menu"></i>
