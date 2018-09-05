@@ -13,7 +13,7 @@
             </el-row>
         </el-header>
         <el-container style="min-height:600px;">
-            <el-aside width="150px" style="min-height:100%;"> 
+            <el-aside width="200px" style="min-height:100%;"> 
                 <el-menu style="min-height: 100%;" router :collapse="isCollapse">
                     <el-menu-item index="home">
                         <i class="el-icon-menu"></i>
@@ -21,22 +21,22 @@
                     </el-menu-item>
                     <el-submenu index="1">
                         <template slot="title">
-                            <i class="el-icon-tickets"></i>
+                            <i class="el-icon-info"></i>
                             <span>信息</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="zhihu">问答</el-menu-item>
-                            <el-menu-item index="chart">报表</el-menu-item>
-                            <el-menu-item index="log">日志</el-menu-item>
+                            <el-menu-item index="zhihu"><i class="el-icon-question"></i>问答</el-menu-item>
+                            <el-menu-item index="chart"><i class="el-icon-menu"></i>报表</el-menu-item>
+                            <el-menu-item index="log"><i class="el-icon-tickets"></i>日志</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
-                            <i class="el-icon-setting"></i>
-                            <span>设置</span>
+                            <i class="el-icon-location"></i>
+                            <span>系统</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="setting">设置1</el-menu-item>
+                            <el-menu-item index="setting"><i class="el-icon-setting"></i>设置</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
