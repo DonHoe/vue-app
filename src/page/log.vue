@@ -34,16 +34,16 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="过滤1">
-                        <el-input v-model="searchModel.arg1" class="input" ></el-input>
+                        <el-input v-model="searchModel.arg0" class="input" ></el-input>
                     </el-form-item>
                     <el-form-item label="过滤2">
-                        <el-input v-model="searchModel.arg2" class="input" ></el-input>
+                        <el-input v-model="searchModel.arg1" class="input" ></el-input>
                     </el-form-item>
                     <el-form-item label="过滤3">
-                        <el-input v-model="searchModel.arg3" class="input" ></el-input>
+                        <el-input v-model="searchModel.arg2" class="input" ></el-input>
                     </el-form-item>
                     <el-form-item label="过滤4">
-                        <el-input v-model="searchModel.arg4" class="input" ></el-input>
+                        <el-input v-model="searchModel.arg3" class="input" ></el-input>
                     </el-form-item>
 
                     <el-form-item>
@@ -58,7 +58,7 @@
                     <el-table-column prop="timestmp" width="165px" label="时间"></el-table-column>
                     <el-table-column width="85px" label="日志级别">
                         <template slot-scope="scope">
-                            <el-tag v-bind:type="logLevelStyle[scope.row.levelString]">{{scope.row.levelString}}</el-tag>
+                            <el-tag size="mini" v-bind:type="logLevelStyle[scope.row.levelString]">{{scope.row.levelString}}</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column prop="formattedMessage" :show-overflow-tooltip="true" label="日志消息"></el-table-column>
@@ -136,10 +136,10 @@ export default {
         callerClass: "",
         callerMethod: "",
         levelString: "",
+        arg0: "",
         arg1: "",
         arg2: "",
         arg3: "",
-        arg4: "",
         startTime: "",
         endTime: "",
         page: 1,
