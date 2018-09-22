@@ -6,6 +6,7 @@ import zhihu from '../page/zhihu.vue'
 import chart from '../page/chart.vue'
 import login from '../page/login.vue'
 import log from '../page/log.vue'
+import main from '../page/main.vue'
 
 Vue.use(Router)
 var routerList = [{
@@ -13,10 +14,14 @@ var routerList = [{
   component: login,
   name: ''
 }, {
-  path: '/',
+  path: '/home',
   component: home,
   name: '',
   children: [{
+      path: '/main',
+      component: main,
+      name: ''
+    }, {
       path: '/setting',
       component: setting,
       name: ''
