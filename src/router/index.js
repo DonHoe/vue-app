@@ -14,7 +14,7 @@ var routerList = [{
   component: login,
   name: ''
 }, {
-  path: '/home',
+  path: '/',
   component: home,
   name: '',
   children: [{
