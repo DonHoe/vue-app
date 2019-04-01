@@ -28,6 +28,7 @@
                             <el-menu-item index="zhihu"><i class="el-icon-question"></i>问答</el-menu-item>
                             <el-menu-item index="chart"><i class="el-icon-menu"></i>报表</el-menu-item>
                             <el-menu-item index="log"><i class="el-icon-tickets"></i>日志</el-menu-item>
+                            <el-menu-item index="spider"><i class="el-icon-tickets"></i>工作</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">

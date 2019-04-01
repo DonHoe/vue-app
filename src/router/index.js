@@ -7,6 +7,7 @@ import chart from '../page/chart.vue'
 import login from '../page/login.vue'
 import log from '../page/log.vue'
 import main from '../page/main.vue'
+import spider from '../page/spider.vue'
 
 Vue.use(Router)
 var routerList = [{
@@ -40,7 +41,13 @@ var routerList = [{
       path: '/chart',
       component: chart,
       name: ''
+    },
+    {
+      path: '/spider',
+      component: spider,
+      name: ''
     }
+
   ]
 }];
 
