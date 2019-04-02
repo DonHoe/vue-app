@@ -12,14 +12,26 @@
           <el-table-column prop="id" label="Id"></el-table-column>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="desc" label="备注"></el-table-column>
-          <el-table-column prop="sleepTime" label="间隔"></el-table-column>
+          <el-table-column prop="sleepTime" label="间隔ms"></el-table-column>
           <el-table-column prop="retryTimes" label="重试"></el-table-column>
           <el-table-column label="状态">
             <template slot-scope="scope">{{statusEmun[scope.row.status]}}</template>
           </el-table-column>
-          <el-table-column label="操作" width="160px">
+          <el-table-column label="操作" width="220px">
             <template slot-scope="scope">
-              <el-button size="mini" @click="edit(scope.row)">编辑</el-button>
+              <el-button
+                v-if="scope.row.status != 1"
+                size="mini"
+                type="success"
+                @click="start(scope.row)"
+              >启动</el-button>
+              <el-button
+                v-if="scope.row.status == 1"
+                size="mini"
+                type="warning"
+                @click="stop(scope.row)"
+              >停止</el-button>
+              <el-button size="mini" type="info" @click="edit(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger">删除</el-button>
             </template>
           </el-table-column>
@@ -34,10 +46,10 @@
             <el-input v-model="dataItem.desc"></el-input>
           </el-form-item>
           <el-form-item label="重试">
-            <el-input v-model="dataItem.retryTimes"></el-input>
+            <el-input type="number" v-model="dataItem.retryTimes"></el-input>
           </el-form-item>
-          <el-form-item label="间隔">
-            <el-input v-model="dataItem.sleepTime"></el-input>
+          <el-form-item label="间隔ms">
+            <el-input type="number" v-model="dataItem.sleepTime"></el-input>
           </el-form-item>
           <el-form-item label="起始">
             <el-input v-model="dataItem.startUrl"></el-input>
@@ -86,10 +98,21 @@ export default {
       dialogFormVisible: false,
       list: [],
       dataItem: {
+        name: "",
+        desc: "",
+        startUrl: "",
+        userAgent: "",
+        sleepTime: "",
+        retryTimes: "",
         regexTargetUrls: [],
         extractFields: []
       },
-      statusEmun: { 0: "初始", 1: "执行", 2: "暂停" }
+      statusEmun: { 0: "初始", 1: "执行", 2: "暂停" },
+      loadingOption: {
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading"
+      }
     };
   },
   created: function() {
@@ -110,11 +133,51 @@ export default {
       var that = this;
       that.dataItem.extractFields.push({ field: "", rule: "" });
     },
+    start: function(row) {
+      var that = this;
+      var loading = this.$loading(that.loadingOption);
+      this.$ajax
+        .get(baseUrl + "/job/startSpider?key=" + row.key)
+        .then(function(response) {
+          loading.close();
+          if (response.data.code == 1000) {
+            that.$message.success("成功");
+            that.dialogFormVisible = false;
+            row.status = response.data.result;
+          } else {
+            that.$message(response.data.message);
+          }
+        })
+        .catch(function(err) {
+          loading.close();
+        });
+    },
+    stop: function(row) {
+      var that = this;
+      var loading = this.$loading(that.loadingOption);
+      this.$ajax
+        .get(baseUrl + "/job/stopSpider?key=" + row.key)
+        .then(function(response) {
+          loading.close();
+          if (response.data.code == 1000) {
+            that.$message.success("成功");
+            that.dialogFormVisible = false;
+            row.status = response.data.result;
+          } else {
+            that.$message(response.data.message);
+          }
+        })
+        .catch(function(err) {
+          loading.close();
+        });
+    },
     save: function() {
       var that = this;
+      var loading = this.$loading(that.loadingOption);
       this.$ajax
         .post(baseUrl + "/job/saveSpiderConfig", that.dataItem)
         .then(function(response) {
+          loading.close();
           if (response.data.code == 1000) {
             that.$message.success("成功");
             that.dialogFormVisible = false;
@@ -123,6 +186,7 @@ export default {
           }
         })
         .catch(function(err) {
+          loading.close();
           console.log(err);
         });
     },
