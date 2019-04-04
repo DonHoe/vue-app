@@ -91,7 +91,6 @@
   </div>
 </template>
 <script>
-var baseUrl = "http://localhost:8090";
 export default {
   data() {
     return {
@@ -137,7 +136,7 @@ export default {
       var that = this;
       var loading = this.$loading(that.loadingOption);
       this.$ajax
-        .get(baseUrl + "/job/startSpider?key=" + row.key)
+        .get(this.$baseUrl + "/job/startSpider?key=" + row.key)
         .then(function(response) {
           loading.close();
           if (response.data.code == 1000) {
@@ -156,7 +155,7 @@ export default {
       var that = this;
       var loading = this.$loading(that.loadingOption);
       this.$ajax
-        .get(baseUrl + "/job/stopSpider?key=" + row.key)
+        .get(this.$baseUrl + "/job/stopSpider?key=" + row.key)
         .then(function(response) {
           loading.close();
           if (response.data.code == 1000) {
@@ -175,7 +174,7 @@ export default {
       var that = this;
       var loading = this.$loading(that.loadingOption);
       this.$ajax
-        .post(baseUrl + "/job/saveSpiderConfig", that.dataItem)
+        .post(this.$baseUrl + "/job/saveSpiderConfig", that.dataItem)
         .then(function(response) {
           loading.close();
           if (response.data.code == 1000) {
@@ -193,7 +192,7 @@ export default {
     search: function() {
       var that = this;
       this.$ajax
-        .get(baseUrl + "/job/getSpiderList")
+        .get(this.$baseUrl + "/job/getSpiderList")
         .then(function(response) {
           that.list = response.data.result;
         })

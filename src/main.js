@@ -14,6 +14,7 @@ MockData.bootstrap();
 
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
+Vue.prototype.$baseUrl = process.env.baseUrl;
 Vue.use(Vuex)
 Vue.use(ElementUI)
 
@@ -35,7 +36,7 @@ Vue.use(ElementUI)
 new Vue({
   el: '#app',
   router,
-  components: { App,Components },
+  components: { App, Components },
   template: '<App/>'
 })
 
