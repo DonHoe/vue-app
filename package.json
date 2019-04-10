@@ -16,6 +16,8 @@
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.7.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.2",

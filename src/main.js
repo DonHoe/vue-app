@@ -7,9 +7,10 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import MockData from './mock/index.js'
+//import './assets/css/index.less'
 import axios from 'axios'
 import Vuex from 'vuex'
-
+//import './assets/css/common.css'
 MockData.bootstrap();
 
 Vue.config.productionTip = false

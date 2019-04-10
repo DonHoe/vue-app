@@ -39,18 +39,31 @@
       </div>
       <el-dialog title="表单" :visible.sync="dialogFormVisible">
         <el-form :model="dataItem" label-width="80px" size="mini" label-suffix=":">
-          <el-form-item label="活动名称">
-            <el-input v-model="dataItem.name"></el-input>
-          </el-form-item>
-          <el-form-item label="活动区域">
-            <el-input v-model="dataItem.desc"></el-input>
-          </el-form-item>
-          <el-form-item label="重试">
-            <el-input type="number" v-model="dataItem.retryTimes"></el-input>
-          </el-form-item>
-          <el-form-item label="间隔ms">
-            <el-input type="number" v-model="dataItem.sleepTime"></el-input>
-          </el-form-item>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="活动名称">
+                <el-input v-model="dataItem.name"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="活动描述">
+                <el-input v-model="dataItem.desc"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="11">
+              <el-form-item label="重试">
+                <el-input type="number" v-model="dataItem.retryTimes"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="11">
+              <el-form-item label="间隔ms">
+                <el-input type="number" v-model="dataItem.sleepTime"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
           <el-form-item label="起始">
             <el-input v-model="dataItem.startUrl"></el-input>
           </el-form-item>
@@ -58,10 +71,11 @@
             <el-input v-model="dataItem.userAgent"></el-input>
           </el-form-item>
           <el-form-item label="地址提取" style="text-align: right;">
-            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addregexTargetUrl"></el-button>
+            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addRegexTargetUrl"></el-button>
           </el-form-item>
           <el-form-item label>
             <el-row
+              class="form-row"
               v-for="(item,index) in dataItem.regexTargetUrls"
               :key="index"
               v-model="dataItem.regexTargetUrls[index]"
@@ -70,16 +84,25 @@
               align="middle"
               :gutter="10"
             >
-              <el-col :span="24">
+              <el-col :span="23">
                 <el-input v-model="dataItem.regexTargetUrls[index]"></el-input>
+              </el-col>
+              <el-col :span="1">
+                <el-button
+                  icon="el-icon-minus"
+                  size="mini"
+                  circle
+                  @click="deleteTargetUrl(index)"
+                ></el-button>
               </el-col>
             </el-row>
           </el-form-item>
           <el-form-item label="字段提取" style="text-align: right;">
-            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addextractField"></el-button>
+            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addExtractField"></el-button>
           </el-form-item>
           <el-form-item label>
             <el-row
+              class="form-row"
               v-for="(value, index) in dataItem.extractFields"
               :key="index"
               type="flex"
@@ -87,15 +110,20 @@
               align="middle"
               :gutter="10"
             >
-              <el-col :span="11">
+              <el-col :span="4">
                 <el-input v-model="dataItem.extractFields[index].field"></el-input>
               </el-col>
               <el-col :span="1" class="line">-</el-col>
-              <el-col :span="11">
+              <el-col :span="18">
                 <el-input v-model="dataItem.extractFields[index].rule"></el-input>
               </el-col>
               <el-col :span="1">
-                <el-button type="danger" icon="el-icon-minus" size="mini" circle></el-button>
+                <el-button
+                  icon="el-icon-minus"
+                  size="mini"
+                  circle
+                  @click="deleteExtractField(index)"
+                ></el-button>
               </el-col>
             </el-row>
           </el-form-item>
@@ -142,13 +170,21 @@ export default {
       that.dataItem = row;
       that.dialogFormVisible = true;
     },
-    addregexTargetUrl: function() {
+    addRegexTargetUrl: function() {
       var that = this;
       that.dataItem.regexTargetUrls.push("");
     },
-    addextractField: function() {
+    addExtractField: function() {
       var that = this;
       that.dataItem.extractFields.push({ field: "", rule: "" });
+    },
+    deleteTargetUrl: function(index) {
+      var that = this;
+      that.dataItem.regexTargetUrls.splice(index, 1);
+    },
+    deleteExtractField: function(index) {
+      var that = this;
+      that.dataItem.extractFields.splice(index, 1);
     },
     start: function(row) {
       var that = this;
@@ -224,6 +260,9 @@ export default {
 <style>
 .line {
   text-align: center;
+}
+.form-row {
+  margin-bottom: 10px;
 }
 </style>
 
