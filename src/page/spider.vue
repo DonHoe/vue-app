@@ -61,23 +61,41 @@
             <el-button size="mini" type="primary" icon="el-icon-plus" @click="addregexTargetUrl"></el-button>
           </el-form-item>
           <el-form-item label>
-            <el-input
+            <el-row
               v-for="(item,index) in dataItem.regexTargetUrls"
               :key="index"
               v-model="dataItem.regexTargetUrls[index]"
-            ></el-input>
+              type="flex"
+              justify="center"
+              align="middle"
+              :gutter="10"
+            >
+              <el-col :span="24">
+                <el-input v-model="dataItem.regexTargetUrls[index]"></el-input>
+              </el-col>
+            </el-row>
           </el-form-item>
           <el-form-item label="字段提取" style="text-align: right;">
             <el-button size="mini" type="primary" icon="el-icon-plus" @click="addextractField"></el-button>
           </el-form-item>
           <el-form-item label>
-            <el-row v-for="(value, index) in dataItem.extractFields" :key="index">
+            <el-row
+              v-for="(value, index) in dataItem.extractFields"
+              :key="index"
+              type="flex"
+              justify="left"
+              align="middle"
+              :gutter="10"
+            >
               <el-col :span="11">
                 <el-input v-model="dataItem.extractFields[index].field"></el-input>
               </el-col>
-              <el-col :span="2" class="line">-</el-col>
+              <el-col :span="1" class="line">-</el-col>
               <el-col :span="11">
                 <el-input v-model="dataItem.extractFields[index].rule"></el-input>
+              </el-col>
+              <el-col :span="1">
+                <el-button type="danger" icon="el-icon-minus" size="mini" circle></el-button>
               </el-col>
             </el-row>
           </el-form-item>
@@ -203,4 +221,9 @@ export default {
   }
 };
 </script>
+<style>
+.line {
+  text-align: center;
+}
+</style>
 
