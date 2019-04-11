@@ -19,18 +19,8 @@
           </el-table-column>
           <el-table-column label="操作" width="220px">
             <template slot-scope="scope">
-              <el-button
-                v-if="scope.row.status != 1"
-                size="mini"
-                type="success"
-                @click="start(scope.row)"
-              >启动</el-button>
-              <el-button
-                v-if="scope.row.status == 1"
-                size="mini"
-                type="warning"
-                @click="stop(scope.row)"
-              >停止</el-button>
+              <el-button v-if="scope.row.status != 1" size="mini" type="success" @click="start(scope.row)">启动</el-button>
+              <el-button v-if="scope.row.status == 1" size="mini" type="warning" @click="stop(scope.row)">停止</el-button>
               <el-button size="mini" type="info" @click="edit(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger">删除</el-button>
             </template>
@@ -71,45 +61,23 @@
             <el-input v-model="dataItem.userAgent"></el-input>
           </el-form-item>
           <el-form-item label="地址提取" style="text-align: right;">
-            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addRegexTargetUrl"></el-button>
+            <el-button size="mini" type="primary" round icon="el-icon-plus" @click="addRegexTargetUrl"></el-button>
           </el-form-item>
           <el-form-item label>
-            <el-row
-              class="form-row"
-              v-for="(item,index) in dataItem.regexTargetUrls"
-              :key="index"
-              v-model="dataItem.regexTargetUrls[index]"
-              type="flex"
-              justify="center"
-              align="middle"
-              :gutter="10"
-            >
+            <el-row class="form-row" v-for="(item,index) in dataItem.regexTargetUrls" :key="index" v-model="dataItem.regexTargetUrls[index]" type="flex" justify="center" align="middle" :gutter="10">
               <el-col :span="23">
                 <el-input v-model="dataItem.regexTargetUrls[index]"></el-input>
               </el-col>
               <el-col :span="1">
-                <el-button
-                  icon="el-icon-minus"
-                  size="mini"
-                  circle
-                  @click="deleteTargetUrl(index)"
-                ></el-button>
+                <el-button icon="el-icon-minus" size="mini" circle @click="deleteTargetUrl(index)"></el-button>
               </el-col>
             </el-row>
           </el-form-item>
           <el-form-item label="字段提取" style="text-align: right;">
-            <el-button size="mini" type="primary" icon="el-icon-plus" @click="addExtractField"></el-button>
+            <el-button size="mini" type="primary" round icon="el-icon-plus" @click="addExtractField"></el-button>
           </el-form-item>
           <el-form-item label>
-            <el-row
-              class="form-row"
-              v-for="(value, index) in dataItem.extractFields"
-              :key="index"
-              type="flex"
-              justify="left"
-              align="middle"
-              :gutter="10"
-            >
+            <el-row class="form-row" v-for="(value, index) in dataItem.extractFields" :key="index" type="flex" justify="left" align="middle" :gutter="10">
               <el-col :span="4">
                 <el-input v-model="dataItem.extractFields[index].field"></el-input>
               </el-col>
@@ -118,12 +86,7 @@
                 <el-input v-model="dataItem.extractFields[index].rule"></el-input>
               </el-col>
               <el-col :span="1">
-                <el-button
-                  icon="el-icon-minus"
-                  size="mini"
-                  circle
-                  @click="deleteExtractField(index)"
-                ></el-button>
+                <el-button icon="el-icon-minus" size="mini" circle @click="deleteExtractField(index)"></el-button>
               </el-col>
             </el-row>
           </el-form-item>
