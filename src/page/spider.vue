@@ -6,6 +6,18 @@
         <el-breadcrumb-item>问答</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+    <div>
+      <sc-search>
+        <el-row :gutter="2">
+          <el-col :span="2">
+            <el-button @click="search" size="mini">查询</el-button>
+          </el-col>
+          <el-col :span="2">
+            <el-button @click="add" size="mini">新增</el-button>
+          </el-col>
+        </el-row>
+      </sc-search>
+    </div>
     <div style="margin-top: 20px;">
       <div>
         <el-table :data="list" border stripe size="small">
@@ -105,7 +117,7 @@ export default {
     return {
       dialogFormVisible: false,
       list: [],
-      dataItem: {
+      emptyDataItem: {
         name: "",
         desc: "",
         startUrl: "",
@@ -115,6 +127,7 @@ export default {
         regexTargetUrls: [],
         extractFields: []
       },
+      dataItem: {},
       statusEmun: { 0: "初始", 1: "执行", 2: "暂停" },
       loadingOption: {
         lock: true,
@@ -128,9 +141,15 @@ export default {
     that.search();
   },
   methods: {
+    add: function() {
+      var that = this;
+      that.dataItem = Object.assign({}, that.emptyDataItem);
+      that.dialogFormVisible = true;
+    },
     edit: function(row) {
       var that = this;
-      that.dataItem = row;
+      console.log(row);
+      that.dataItem = Object.assign({}, row);
       that.dialogFormVisible = true;
     },
     addRegexTargetUrl: function() {
