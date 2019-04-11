@@ -143,13 +143,14 @@ export default {
   methods: {
     add: function() {
       var that = this;
-      that.dataItem = Object.assign({}, that.emptyDataItem);
+      that.dataItem = JSON.parse(JSON.stringify(that.emptyDataItem));
       that.dialogFormVisible = true;
     },
     edit: function(row) {
       var that = this;
-      console.log(row);
-      that.dataItem = Object.assign({}, row);
+      //浅拷贝,内部数组会同步修改
+      //that.dataItem = Object.assign({}, row);
+      that.dataItem = JSON.parse(JSON.stringify(row));
       that.dialogFormVisible = true;
     },
     addRegexTargetUrl: function() {
