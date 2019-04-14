@@ -75,7 +75,7 @@
           <el-row>
             <el-col :span="22">
               <el-form-item label="代理">
-                <el-input v-model="dataItem.userAgent"></el-input>
+                <el-input :title="dataItem.userAgent" v-model="dataItem.userAgent"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
