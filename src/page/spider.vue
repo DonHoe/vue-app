@@ -65,19 +65,30 @@
               </el-form-item>
             </el-col>
           </el-row>
-
-          <el-form-item label="起始">
-            <el-input v-model="dataItem.startUrl"></el-input>
-          </el-form-item>
-          <el-form-item label="代理">
-            <el-input v-model="dataItem.userAgent"></el-input>
-          </el-form-item>
-          <el-form-item label="地址提取" style="text-align: right;">
-            <el-button size="mini" type="primary" round icon="el-icon-plus" @click="addRegexTargetUrl"></el-button>
+          <el-row>
+            <el-col :span="22">
+              <el-form-item label="起始">
+                <el-input v-model="dataItem.startUrl"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="22">
+              <el-form-item label="代理">
+                <el-input v-model="dataItem.userAgent"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-form-item label="地址提取">
+            <el-row>
+              <el-col :offset="21" :span="2">
+                <el-button size="mini" type="primary" circle icon="el-icon-plus" @click="addRegexTargetUrl"></el-button>
+              </el-col>
+            </el-row>
           </el-form-item>
           <el-form-item label>
-            <el-row class="form-row" v-for="(item,index) in dataItem.regexTargetUrls" :key="index" v-model="dataItem.regexTargetUrls[index]" type="flex" justify="center" align="middle" :gutter="10">
-              <el-col :span="23">
+            <el-row class="form-row" v-for="(item,index) in dataItem.regexTargetUrls" :key="index" v-model="dataItem.regexTargetUrls[index]" type="flex" justify="left" align="middle" :gutter="10">
+              <el-col :span="22">
                 <el-input v-model="dataItem.regexTargetUrls[index]"></el-input>
               </el-col>
               <el-col :span="1">
@@ -85,8 +96,12 @@
               </el-col>
             </el-row>
           </el-form-item>
-          <el-form-item label="字段提取" style="text-align: right;">
-            <el-button size="mini" type="primary" round icon="el-icon-plus" @click="addExtractField"></el-button>
+          <el-form-item label="字段提取">
+            <el-row>
+              <el-col :offset="21" :span="2">
+                <el-button size="mini" type="primary" circle icon="el-icon-plus" @click="addExtractField"></el-button>
+              </el-col>
+            </el-row>
           </el-form-item>
           <el-form-item label>
             <el-row class="form-row" v-for="(value, index) in dataItem.extractFields" :key="index" type="flex" justify="left" align="middle" :gutter="10">
@@ -94,7 +109,7 @@
                 <el-input v-model="dataItem.extractFields[index].field"></el-input>
               </el-col>
               <el-col :span="1" class="line">-</el-col>
-              <el-col :span="18">
+              <el-col :span="17">
                 <el-input v-model="dataItem.extractFields[index].rule"></el-input>
               </el-col>
               <el-col :span="1">
