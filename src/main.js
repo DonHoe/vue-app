@@ -12,8 +12,6 @@ Vue.prototype.$ajax = axios
 Vue.prototype.$baseUrl = process.env.NODE_ENV == 'production' ? "" : "http://localhost:8090";
 Vue.use(Vuex)
 Vue.use(ElementUI)
-window.console.log(process.env);
-window.console.log(Vue.prototype.$baseUrl);
 new Vue({
     render: h => h(App),
 }).$mount('#app')
