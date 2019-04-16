@@ -78,7 +78,7 @@ export default {
   methods: {
     search: function() {
       var that = this;
-      console.log(that.searchModel);
+      window.console.log(that.searchModel);
       this.$ajax
         .get("/api/getData")
         .then(function(response) {
@@ -86,7 +86,7 @@ export default {
           that.totalRecords = response.data.count;
         })
         .catch(function(err) {
-          console.log(err);
+          window.console.log(err);
         });
     },
     pageChange:function(){

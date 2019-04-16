@@ -238,7 +238,7 @@ export default {
         })
         .catch(function(err) {
           loading.close();
-          console.log(err);
+          window.console.log(err);
         });
     },
     search: function() {
@@ -249,7 +249,7 @@ export default {
           that.list = response.data.result;
         })
         .catch(function(err) {
-          console.log(err);
+          window.console.log(err);
         });
     }
   }

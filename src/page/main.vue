@@ -55,10 +55,10 @@ export default {
     getData: function() {
       this.$ajax.get("/api/getData").then(
         response => {
-          console.log(response.data);
+          window.console.log(response.data);
         },
         response => {
-          console.log(response.data);
+          window.console.log(response.data);
         }
       );
     }
