@@ -40,7 +40,7 @@
                     <el-table-column prop="cdate" label="日期"></el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini">编辑</el-button>
+                            <el-button size="mini" @click="handleClick(scope.row)">编辑</el-button>
                             <el-button size="mini" type="danger">删除</el-button>
                         </template>
                     </el-table-column>
@@ -102,6 +102,9 @@ export default {
         var that = this;
         that.mCurrPage = val;
         that.pageChange();
+    },
+    handleClick:function(row){
+        window.console.log(row);
     }
   }
 };
