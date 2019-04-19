@@ -127,6 +127,8 @@
   </div>
 </template>
 <script>
+import MockData from '../mock/index.js'
+MockData.bootstrap();
 export default {
   data() {
     return {
@@ -200,6 +202,7 @@ export default {
           }
         })
         .catch(function(err) {
+          window.console.log(err);
           loading.close();
         });
     },
@@ -219,6 +222,7 @@ export default {
           }
         })
         .catch(function(err) {
+          window.console.log(err);
           loading.close();
         });
     },
