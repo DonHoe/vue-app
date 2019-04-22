@@ -13,7 +13,7 @@
                 </el-row>
             </el-header>
             <el-container style="min-height:600px;">
-                <el-aside width="200px" style="min-height:100%;">
+                <el-aside id="home-aside"  width="200px" style="min-height:100%;">
                     <el-menu style="min-height: 100%;" router :collapse="isCollapse">
                         <el-menu-item index="main">
                             <i class="el-icon-menu"></i>
@@ -38,7 +38,7 @@
                         </el-submenu>
                     </el-menu>
                 </el-aside>
-                <el-main style="min-height:100%;">
+                <el-main id="home-main" style="min-height:100%;">
                     <keep-alive>
                         <router-view />
                     </keep-alive>
