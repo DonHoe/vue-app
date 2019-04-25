@@ -18,6 +18,7 @@ axios.interceptors.request.use(function(config) {
     globalLoad = Vue.prototype.$loading({ target: "#home-main" });
     return config;
 }, function(error) {
+    globalLoad && globalLoad.close();
     return Promise.reject(error);
 });
 
@@ -26,7 +27,7 @@ axios.interceptors.response.use(function(response) {
     globalLoad.close();
     return response;
 }, function(error) {
-    globalLoad || globalLoad.close();
+    globalLoad && globalLoad.close();
     return Promise.reject(error);
 });
 Vue.prototype.$ajax = axios;
