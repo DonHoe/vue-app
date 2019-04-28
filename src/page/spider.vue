@@ -128,7 +128,13 @@
                 <el-table :data="resultList" border stripe size="small">
                     <el-table-column v-for="(item,index) in resultColumn" :key="index" :prop="item" :label="item">
                     </el-table-column>
-                    <el-table-column prop="_createTime" label="日期" width="150"></el-table-column>
+                    <el-table-column prop="_createTime" label="日期" width="150">
+                        <template slot-scope="scope">
+                            <el-popover placement="top-start" :title="scope.row._config_name" width="200" trigger="hover" :content="scope.row._request_url">
+                                <span slot="reference">{{scope.row._createTime}}</span>
+                            </el-popover>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </el-dialog>
         </div>
