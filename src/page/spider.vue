@@ -29,11 +29,12 @@
                     <el-table-column label="状态">
                         <template slot-scope="scope">{{statusEmun[scope.row.status]}}</template>
                     </el-table-column>
-                    <el-table-column label="操作" width="280px">
+                    <el-table-column label="操作" width="345px">
                         <template slot-scope="scope">
                             <el-button v-if="scope.row.status != 1" size="mini" type="success" @click="start(scope.row)">启动</el-button>
                             <el-button v-if="scope.row.status == 1" size="mini" type="warning" @click="stop(scope.row)">停止</el-button>
                             <el-button size="mini" type="primary" @click="getSpiderResult(scope.row)">明细</el-button>
+                            <el-button size="mini" type="primary" @click="clearSpiderResult(scope.row)">清空</el-button>
                             <el-button size="mini" type="info" @click="edit(scope.row)">编辑</el-button>
                             <el-button size="mini" type="danger">删除</el-button>
                         </template>
@@ -126,7 +127,7 @@
             </el-dialog>
             <el-dialog title="执行结果" :visible.sync="dialogTableVisible">
                 <el-table :data="resultList" border stripe size="small">
-                    <el-table-column v-for="(item,index) in resultColumn" :key="index" :prop="item" :label="item">
+                    <el-table-column v-for="(item,index) in resultColumn" :key="index" :prop="item" :label="item" show-overflow-tooltip="true">
                     </el-table-column>
                     <el-table-column prop="_createTime" label="日期" width="150">
                         <template slot-scope="scope">
@@ -259,6 +260,23 @@ export default {
                         that.dialogTableVisible = true;
                         that.resultColumn = response.data.result.column;
                         that.resultList = response.data.result.list;
+                    } else {
+                        that.$message(response.data.message);
+                    }
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
+        clearSpiderResult: function(row) {
+            var that = this;
+            this.$ajax
+                .get(this.$baseUrl + "/job/clearSpiderResult", {
+                    params: { key: row.key}
+                })
+                .then(function(response) {
+                    if (response.data.code == 1000) {
+                        that.$message.success("清空成功");
                     } else {
                         that.$message(response.data.message);
                     }
