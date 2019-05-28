@@ -20,7 +20,7 @@
         </div>
         <div style="margin-top: 20px;">
             <div>
-                <el-table :data="list" border stripe size="small">
+                <el-table :data="list" border stripe size="mini">
                     <el-table-column prop="id" label="Id"></el-table-column>
                     <el-table-column prop="name" label="名称"></el-table-column>
                     <el-table-column prop="desc" label="备注"></el-table-column>
@@ -126,8 +126,8 @@
                 </div>
             </el-dialog>
             <el-dialog title="执行结果" :visible.sync="dialogTableVisible">
-                <el-table :data="resultList" border stripe size="small">
-                    <el-table-column v-for="(item,index) in resultColumn" :key="index" :prop="item" :label="item" show-overflow-tooltip="true">
+                <el-table :data="resultList" border stripe size="mini">
+                    <el-table-column v-for="(item,index) in resultColumn" :key="index" :prop="item" :label="item" show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column prop="_createTime" label="日期" width="150">
                         <template slot-scope="scope">
@@ -137,6 +137,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-pagination small layout="prev, pager, next" :total="listTotal" @current-change="pageChange">
+                </el-pagination>
             </el-dialog>
         </div>
     </div>
@@ -147,6 +149,7 @@ MockData.bootstrap();
 export default {
     data() {
         return {
+            listTotal: 0,
             dialogFormVisible: false,
             dialogTableVisible: false,
             list: [],
@@ -272,7 +275,7 @@ export default {
             var that = this;
             this.$ajax
                 .get(this.$baseUrl + "/job/clearSpiderResult", {
-                    params: { key: row.key}
+                    params: { key: row.key }
                 })
                 .then(function(response) {
                     if (response.data.code == 1000) {
@@ -295,6 +298,9 @@ export default {
                 .catch(function(err) {
                     window.console.log(err);
                 });
+        },
+        pageChange: function(val) {
+            window.console.log(val);
         }
     }
 };
