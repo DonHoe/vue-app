@@ -299,6 +299,23 @@ export default {
                     window.console.log(err);
                 });
         },
+        delete:function(row){
+            var that = this;
+            this.$ajax
+                .get(this.$baseUrl + "/job/removeSpiderConfig", {
+                    params: { key: row.key }
+                })
+                .then(function(response) {
+                    if (response.data.code == 1000) {
+                        that.$message.success("删除成功");
+                    } else {
+                        that.$message(response.data.message);
+                    }
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
         pageChange: function(val) {
             window.console.log(val);
         }
