@@ -9,10 +9,10 @@
         <div>
             <sc-search>
                 <el-row :gutter="2">
-                    <el-col :span="2">
+                    <el-col :span="1">
                         <el-button @click="search" size="mini">查询</el-button>
                     </el-col>
-                    <el-col :span="2">
+                    <el-col :span="1">
                         <el-button @click="add" size="mini">新增</el-button>
                     </el-col>
                 </el-row>
@@ -244,6 +244,7 @@ export default {
                     if (response.data.code == 1000) {
                         that.$message.success("成功");
                         that.dialogFormVisible = false;
+                        that.search();
                     } else {
                         that.$message(response.data.message);
                     }
