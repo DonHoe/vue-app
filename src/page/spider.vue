@@ -6,7 +6,15 @@
                 <el-breadcrumb-item>问答</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div>
+        <div style="margin-top: 20px;">
+            <el-row :gutter="20">
+                <el-col :span="10">
+                    <el-input v-model="input_url" placeholder="请输入内容"></el-input>
+                </el-col>
+                <el-col :span="2">
+                    <el-button @click="startSpider">默认按钮</el-button>
+                </el-col>
+            </el-row>
         </div>
         <div style="margin-top: 20px;">
             <el-row>
@@ -52,12 +60,13 @@ export default {
                 extractFields: []
             },
             dataItem: {},
+            input_url: "",
             statusEmun: { 0: "初始", 1: "执行", 2: "暂停" }
         };
     },
     created: function() {
-        var that = this;
-        that.search();
+        //var that = this;
+        //that.search();
     },
     methods: {
         add: function() {
@@ -66,7 +75,10 @@ export default {
             that.dialogFormVisible = true;
         },
         drawChart: function(rate) {
-            var chart1 = echarts.init(document.getElementById("item1"),'light');
+            var chart1 = echarts.init(
+                document.getElementById("item1"),
+                "light"
+            );
             var option1 = {
                 legend: {
                     bottom: 10,
@@ -106,6 +118,21 @@ export default {
                         });
                     });
                     that.drawChart(rate);
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
+        startSpider:function(){
+            var that = this;
+            this.$ajax
+                .get(this.$baseUrl + "/home/startSpider",{
+                    params:{
+                        url:that.input_url
+                    }
+                })
+                .then(function(response) {
+                    window.console.log(response.data);
                 })
                 .catch(function(err) {
                     window.console.log(err);
