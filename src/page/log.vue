@@ -155,7 +155,7 @@ export default {
     };
   },
   created: function() {
-    var that = this;
+    //var that = this;
   },
   methods: {
     search: function() {
@@ -174,6 +174,7 @@ export default {
         })
         .catch(function(err) {
           that.loading = false;
+          window.console.log(err);
         });
     },
     pageChange: function() {

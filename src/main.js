@@ -31,8 +31,8 @@ axios.interceptors.response.use(function(response) {
     return Promise.reject(error);
 });
 Vue.prototype.$ajax = axios;
-Vue.prototype.$baseUrl = process.env.NODE_ENV == 'production' ? "" : "http://localhost:5566";
-
+//Vue.prototype.$baseUrl = process.env.NODE_ENV == 'production' ? "" : "http://localhost:5566";
+Vue.prototype.$baseUrl = "http://localhost:5566";
 new Vue({
     render: h => h(App),
 }).$mount('#app')
