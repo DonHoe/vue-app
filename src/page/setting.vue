@@ -35,10 +35,19 @@
                     <el-table-column prop="columnComment" label="操作" width="250">
                         <template slot-scope="scope">
                             <el-button size="mini" type="primary" @click="codeCreate(scope.row)">生成代码</el-button>
-                            <el-button size="mini" type="success" >字段明细</el-button>
+                            <el-button size="mini" type="success" @click="showColumns(scope.row)">字段明细</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-dialog title="字段明细" :visible.sync="dialogTableVisible">
+                    <el-table :data="columnData" stripe border size="small" >
+                        <el-table-column property="ordinalPosition" label="序列" width="50"></el-table-column>
+                        <el-table-column property="columnName" label="字段名" width="150"></el-table-column>
+                        <el-table-column property="columnType" label="类型" width="100"></el-table-column>
+                        <el-table-column property="columnComment" label="备注" width="150"></el-table-column>columnDefault
+                        <el-table-column property="columnDefault" label="默认值" width="150"></el-table-column>
+                    </el-table>
+                </el-dialog>
             </el-main>
         </el-container>
     </el-container>
@@ -49,7 +58,8 @@ export default {
         return {
             tableList: [],
             columnData: [],
-            searchModel: {}
+            searchModel: {},
+            dialogTableVisible: false
         };
     },
     created: function() {
@@ -69,28 +79,19 @@ export default {
                 });
         },
         codeCreate(row) {
-            window.location.href = this.$baseUrl +
-                        "/setting/codeCreate?table=" +row.tableName;
-            // this.$ajax
-            //     .get(
-            //         this.$baseUrl +
-            //             "/setting/codeCreate?table=" +row.tableName
-            //     )
-            //     .then(function() {
-            //     })
-            //     .catch(function(err) {
-            //         window.console.log(err);
-            //     });
+            window.location.href =
+                this.$baseUrl + "/setting/codeCreate?table=" + row.tableName;
         },
-        handleNodeClick(data) {
+        showColumns(row) {
             var that = this;
             this.$ajax
                 .get(
                     this.$baseUrl +
                         "/setting/getColumnsList?table=" +
-                        data.label
+                        row.tableName
                 )
                 .then(function(response) {
+                    that.dialogTableVisible = true;
                     that.columnData = response.data.result;
                 })
                 .catch(function(err) {
