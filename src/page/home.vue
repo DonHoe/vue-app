@@ -34,7 +34,8 @@
                                 <i class="el-icon-location"></i>
                                 <span>系统</span>
                             </template>
-                            <el-menu-item index="setting"><i class="el-icon-setting"></i>设置</el-menu-item>
+                            <el-menu-item index="setting"><i class="el-icon-setting"></i>代码生成</el-menu-item>
+                            <el-menu-item index="menu"><i class="el-icon-setting"></i>菜单</el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </el-aside>

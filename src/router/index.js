@@ -3,7 +3,15 @@ import Router from 'vue-router'
 
 const getComponent = (component) => () =>
     import (`../page/${component}.vue`);
-
+let routerMap = [
+    ["/main", "main"],
+    ["/setting", "setting"],
+    ["/zhihu", "zhihu"],
+    ["/log", "log"],
+    ["/chart", "chart"],
+    ["/spider", "spider"],
+    ["/menu", "menu"]
+];
 Vue.use(Router)
 var routerList = [{
     path: '/login',
@@ -13,38 +21,15 @@ var routerList = [{
     path: '/',
     component: getComponent("home"),
     name: '',
-    children: [{
-            path: '/main',
-            component: getComponent("main"),
-            name: ''
-        }, {
-            path: '/setting',
-            component: getComponent("setting"),
-            name: ''
-        },
-        {
-            path: '/zhihu',
-            component: getComponent("zhihu"),
-            name: ''
-        },
-        {
-            path: '/log',
-            component: getComponent("log"),
-            name: ''
-        },
-        {
-            path: '/chart',
-            component: getComponent("chart"),
-            name: ''
-        },
-        {
-            path: '/spider',
-            component: getComponent("spider"),
-            name: ''
-        }
-
-    ]
+    children: []
 }];
+
+routerMap.forEach(function(v) {
+    routerList[1].children.push({
+        path: v[0],
+        component: getComponent(v[1])
+    });
+});
 
 export default new Router({
     routes: routerList
