@@ -15,7 +15,7 @@
                     </el-col>
                     <el-col :span="5">
                         <el-form-item label="">
-                            <el-button>查询</el-button>
+                            <el-button @click="getMenuList()">查询</el-button>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -23,7 +23,7 @@
         </el-header>
         <el-container>
             <el-main>
-                <el-table :data="menuList" stripe border size="small" style="width: 100%">
+                <el-table :data="menuList" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" stripe border size="small" style="width: 100%">
                     <el-table-column prop="menuName" label="菜单名" width="180">
                     </el-table-column>
                     <el-table-column prop="url" label="地址" width="180">
@@ -34,19 +34,34 @@
                     </el-table-column>
                     <el-table-column prop="columnComment" label="操作" width="250">
                         <template slot-scope="scope">
-                            <el-button size="mini" type="primary" @click="codeCreate(scope.row)">生成代码</el-button>
-                            <el-button size="mini" type="success" @click="showColumns(scope.row)">字段明细</el-button>
+                            <el-button size="mini" type="primary" @click="editMenu(scope.row)">编辑</el-button>
+                            <el-button size="mini" type="success" @click="addMenu(scope.row)">新增</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-dialog title="字段明细" :visible.sync="dialogTableVisible">
-                    <el-table :data="columnData" stripe border size="small" >
-                        <el-table-column property="ordinalPosition" label="序列" width="50"></el-table-column>
-                        <el-table-column property="columnName" label="字段名" width="150"></el-table-column>
-                        <el-table-column property="columnType" label="类型" width="100"></el-table-column>
-                        <el-table-column property="columnComment" label="备注" width="150"></el-table-column>columnDefault
-                        <el-table-column property="columnDefault" label="默认值" width="150"></el-table-column>
-                    </el-table>
+                <el-dialog title="菜单" :visible.sync="dialogTableVisible">
+                    <el-form ref="menuModel" :model="menuModel" label-width="80px" size="small">
+                        <input type="hidden" v-model="menuModel.id" />
+                        <input type="hidden" v-model="menuModel.parentId" />
+                        <el-form-item label="菜单名称">
+                            <el-input v-model="menuModel.menuName"></el-input>
+                        </el-form-item>
+                        <el-form-item label="路径">
+                            <el-input v-model="menuModel.url"></el-input>
+                        </el-form-item>
+                        <el-form-item label="权限">
+                            <el-input v-model="menuModel.permit"></el-input>
+                        </el-form-item>
+                        <el-form-item label="类型">
+                            <el-input v-model="menuModel.menuType"></el-input>
+                        </el-form-item>
+                        <el-form-item label="可见性">
+                            <el-input v-model="menuModel.visible"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="saveMenu">保存</el-button>
+                        </el-form-item>
+                    </el-form>
                 </el-dialog>
             </el-main>
         </el-container>
@@ -57,6 +72,16 @@ export default {
     data() {
         return {
             menuList: [],
+            menuModel: {},
+            emptyMenu: {
+                id: 0,
+                parentId: 0,
+                menuName: "",
+                url: "",
+                permit: "",
+                menuType: 0,
+                visible: 0
+            },
             columnData: [],
             searchModel: {},
             dialogTableVisible: false
@@ -78,21 +103,26 @@ export default {
                     window.console.log(err);
                 });
         },
-        codeCreate(row) {
-            window.location.href =
-                this.$baseUrl + "/setting/codeCreate?table=" + row.tableName;
+        addMenu: function(row) {
+            var that = this;
+            that.menuModel = Object.assign({}, that.emptyMenu);
+            if (row) {
+                that.menuModel.parentId = row.parentId;
+            }
+            that.dialogTableVisible = true;
         },
-        showColumns(row) {
+        editMenu: function(row) {
+            var that = this;
+            that.menuModel = row;
+            that.dialogTableVisible = true;
+        },
+        saveMenu() {
             var that = this;
             this.$ajax
-                .get(
-                    this.$baseUrl +
-                        "/setting/getColumnsList?table=" +
-                        row.tableName
-                )
+                .post(this.$baseUrl + "/setting/saveMenu", that.menuModel)
                 .then(function(response) {
-                    that.dialogTableVisible = true;
-                    that.columnData = response.data.result;
+                    that.dialogTableVisible = false;
+                    window.console.log(response);
                 })
                 .catch(function(err) {
                     window.console.log(err);
