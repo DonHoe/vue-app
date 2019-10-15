@@ -30,7 +30,17 @@
                     </el-table-column>
                     <el-table-column prop="permit" label="权限" width="150">
                     </el-table-column>
-                    <el-table-column prop="visible" label="可见" width="150">
+                    <el-table-column prop="menuType" label="类型" width="150">
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.menuType == 0">菜单</el-tag>
+                            <el-tag v-if="scope.row.menuType == 1"  type="info">按钮</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="visible" label="显示" width="150">
+                        <template slot-scope="scope">
+                            <el-tag v-if="scope.row.visible == 0" effect="dark" type="success">显示</el-tag>
+                            <el-tag v-if="scope.row.visible == 1" effect="dark"  type="info">隐藏</el-tag>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="columnComment" label="操作" width="250">
                         <template slot-scope="scope">
@@ -53,13 +63,15 @@
                             <el-input v-model="menuModel.permit"></el-input>
                         </el-form-item>
                         <el-form-item label="类型">
-                            <el-input v-model="menuModel.menuType"></el-input>
+                            <el-radio v-model="menuModel.menuType" :label=0>菜单</el-radio>
+                            <el-radio v-model="menuModel.menuType" :label=1>按钮</el-radio>
                         </el-form-item>
-                        <el-form-item label="可见性">
-                            <el-input v-model="menuModel.visible"></el-input>
+                        <el-form-item label="显示">
+                            <el-switch v-model="menuModel.visible" :active-value=0 :inactive-value=1>
+                            </el-switch>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="saveMenu">保存</el-button>
+                            <el-button type="primary" @click="saveMenu()">保存</el-button>
                         </el-form-item>
                     </el-form>
                 </el-dialog>
@@ -119,10 +131,18 @@ export default {
         saveMenu() {
             var that = this;
             this.$ajax
-                .post(this.$baseUrl + "/setting/saveMenu", that.menuModel)
+                .post(this.$baseUrl + "/system/saveMenu", that.menuModel)
                 .then(function(response) {
-                    that.dialogTableVisible = false;
-                    window.console.log(response);
+                    if (response.data.code == 1000) {
+                        that.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                        that.dialogTableVisible = false;
+                        that.getMenuList();
+                    } else {
+                        that.$alert(response.data.message);
+                    }
                 })
                 .catch(function(err) {
                     window.console.log(err);
