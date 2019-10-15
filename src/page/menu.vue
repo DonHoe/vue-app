@@ -50,7 +50,7 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-dialog title="菜单" :visible.sync="dialogTableVisible" width="30%">
+                <el-dialog title="菜单" :visible.sync="dialogTableVisible" width="30%" :close-on-click-modal="false">
                     <el-form ref="menuModel" :model="menuModel" label-width="80px" size="small">
                         <input type="hidden" v-model="menuModel.id" />
                         <input type="hidden" v-model="menuModel.parentId" />

@@ -13,33 +13,25 @@
                 </el-row>
             </el-header>
             <el-container style="min-height:600px;">
-                <el-aside id="home-aside"  width="200px" style="min-height:100%;">
+                <el-aside id="home-aside" width="200px" style="min-height:100%;">
                     <el-menu style="min-height: 100%;" router :collapse="isCollapse">
                         <el-menu-item index="main">
                             <i class="el-icon-menu"></i>
                             <span slot="title">首页</span>
                         </el-menu-item>
-                        <el-submenu index="1">
+
+                        <el-submenu v-for="menu in menuList" :index="menu.url" :key="menu.id">
                             <template slot="title">
-                                <i class="el-icon-info"></i>
-                                <span>信息</span>
+                                <i :class="menu.icon"></i>
+                                <span>{{menu.menuName}}</span>
                             </template>
-                            <el-menu-item index="zhihu"><i class="el-icon-question"></i>问答</el-menu-item>
-                            <el-menu-item index="chart"><i class="el-icon-menu"></i>报表</el-menu-item>
-                            <el-menu-item index="log"><i class="el-icon-tickets"></i>日志</el-menu-item>
-                            <el-menu-item index="spider"><i class="el-icon-bell"></i>工作</el-menu-item>
-                        </el-submenu>
-                        <el-submenu index="2">
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span>系统</span>
-                            </template>
-                            <el-menu-item index="setting"><i class="el-icon-setting"></i>代码生成</el-menu-item>
-                            <el-menu-item index="menu"><i class="el-icon-setting"></i>菜单</el-menu-item>
+                            <el-menu-item v-for="subMenu in menu.children" :index="subMenu.url" :key="subMenu.id">
+                                <i :class="subMenu.icon"></i>{{subMenu.menuName}}
+                            </el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </el-aside>
-                <el-main id="home-main" style="min-height:100%;">
+                <el-main id="home" style="min-height:100%;">
                     <keep-alive>
                         <router-view />
                     </keep-alive>
@@ -53,14 +45,27 @@
 export default {
     data() {
         return {
-            isCollapse: false
+            isCollapse: false,
+            menuList: []
         };
     },
     created() {
-        //var that = this;
-        //console.log(this.$router.options.routes);
+        this.initMenu();
     },
-    computed: {}
+    computed: {},
+    methods: {
+        initMenu: function() {
+            var that = this;
+            this.$ajax
+                .get(this.$baseUrl + "/system/getMenuList")
+                .then(function(response) {
+                    that.menuList = response.data.result;
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        }
+    }
 };
 </script>
 
