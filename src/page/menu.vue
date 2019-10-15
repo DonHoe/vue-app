@@ -30,26 +30,27 @@
                     </el-table-column>
                     <el-table-column prop="permit" label="权限" width="150">
                     </el-table-column>
-                    <el-table-column prop="menuType" label="类型" width="150">
+                    <el-table-column prop="menuType" label="类型" align="center" width="80">
                         <template slot-scope="scope">
                             <el-tag v-if="scope.row.menuType == 0">菜单</el-tag>
-                            <el-tag v-if="scope.row.menuType == 1"  type="info">按钮</el-tag>
+                            <el-tag v-if="scope.row.menuType == 1" type="info">按钮</el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="visible" label="显示" width="150">
+                    <el-table-column prop="visible" label="显示" align="center" width="80">
                         <template slot-scope="scope">
                             <el-tag v-if="scope.row.visible == 0" effect="dark" type="success">显示</el-tag>
-                            <el-tag v-if="scope.row.visible == 1" effect="dark"  type="info">隐藏</el-tag>
+                            <el-tag v-if="scope.row.visible == 1" effect="dark" type="info">隐藏</el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column prop="columnComment" label="操作" width="250">
                         <template slot-scope="scope">
-                            <el-button size="mini" type="primary" @click="editMenu(scope.row)">编辑</el-button>
-                            <el-button size="mini" type="success" @click="addMenu(scope.row)">新增</el-button>
+                            <el-button size="mini" title="编辑" icon="el-icon-edit-outline" @click="editMenu(scope.row)"></el-button>
+                            <el-button size="mini" title="新增" icon="el-icon-plus" @click="addMenu(scope.row)"></el-button>
+                            <el-button size="mini" type="danger" title="删除" icon="el-icon-delete" @click="confirmDelete(scope.row)"></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-dialog title="菜单" :visible.sync="dialogTableVisible">
+                <el-dialog title="菜单" :visible.sync="dialogTableVisible" width="30%">
                     <el-form ref="menuModel" :model="menuModel" label-width="80px" size="small">
                         <input type="hidden" v-model="menuModel.id" />
                         <input type="hidden" v-model="menuModel.parentId" />
@@ -61,6 +62,9 @@
                         </el-form-item>
                         <el-form-item label="权限">
                             <el-input v-model="menuModel.permit"></el-input>
+                        </el-form-item>
+                        <el-form-item label="图标">
+                            <el-input v-model="menuModel.icon"></el-input>
                         </el-form-item>
                         <el-form-item label="类型">
                             <el-radio v-model="menuModel.menuType" :label=0>菜单</el-radio>
@@ -92,7 +96,8 @@ export default {
                 url: "",
                 permit: "",
                 menuType: 0,
-                visible: 0
+                visible: 0,
+                icon: ""
             },
             columnData: [],
             searchModel: {},
@@ -119,13 +124,13 @@ export default {
             var that = this;
             that.menuModel = Object.assign({}, that.emptyMenu);
             if (row) {
-                that.menuModel.parentId = row.parentId;
+                that.menuModel.parentId = row.id;
             }
             that.dialogTableVisible = true;
         },
         editMenu: function(row) {
             var that = this;
-            that.menuModel = row;
+            that.menuModel = Object.assign({}, row);
             that.dialogTableVisible = true;
         },
         saveMenu() {
@@ -136,6 +141,38 @@ export default {
                     if (response.data.code == 1000) {
                         that.$message({
                             message: "保存成功",
+                            type: "success"
+                        });
+                        that.dialogTableVisible = false;
+                        that.getMenuList();
+                    } else {
+                        that.$alert(response.data.message);
+                    }
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
+        confirmDelete(row) {
+            var that = this;
+            this.$confirm("确认删除?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    that.deleteMenu(row);
+                })
+                .catch(() => {});
+        },
+        deleteMenu(row) {
+            var that = this;
+            this.$ajax
+                .post(this.$baseUrl + "/system/deleteMenu", row)
+                .then(function(response) {
+                    if (response.data.code == 1000) {
+                        that.$message({
+                            message: "删除成功",
                             type: "success"
                         });
                         that.dialogTableVisible = false;

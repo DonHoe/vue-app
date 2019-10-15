@@ -2,13 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios'
 import Vuex from 'vuex'
-import Highlight from './directive/highlight-directive.js';
 
 Vue.use(Vuex);
 Vue.use(ElementUI);
-Vue.use(Highlight);
 Vue.config.productionTip = false;
 
 let globalLoad;

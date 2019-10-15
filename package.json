@@ -1,56 +1,55 @@
 {
-    "name": "admin-project",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
+  "name": "admin-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "font-awesome": "^4.7.0",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "echarts": "^4.1.0",
+    "element-ui": "^2.12.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21",
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "dependencies": {
-        "core-js": "^2.6.5",
-        "highlight.js": "^9.15.6",
-        "vue": "^2.6.10"
-    },
-    "devDependencies": {
-        "axios": "^0.18.0",
-        "echarts": "^4.1.0",
-        "element-ui": "^2.12.0",
-        "less": "^3.9.0",
-        "less-loader": "^4.1.0",
-        "mockjs": "^1.0.1-beta3",
-        "@vue/cli-plugin-babel": "^3.6.0",
-        "@vue/cli-plugin-eslint": "^3.6.0",
-        "@vue/cli-service": "^3.6.0",
-        "babel-eslint": "^10.0.1",
-        "eslint": "^5.16.0",
-        "eslint-plugin-vue": "^5.0.0",
-        "vue-template-compiler": "^2.5.21",
-        "vue-router": "^3.0.2",
-        "vuex": "^3.1.0"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "eslint:recommended"
-        ],
-        "rules": {},
-        "parserOptions": {
-            "parser": "babel-eslint"
-        }
-    },
-    "postcss": {
-        "plugins": {
-            "autoprefixer": {}
-        }
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not ie <= 8"
-    ]
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

@@ -45,13 +45,7 @@
             </el-col>
         </el-row>
         <div>
-            <pre v-highlightA>
-                <code>
-                public static void writeStringToFile(File file, String data) throws IOException {
-                    writeStringToFile(file, data, Charset.defaultCharset(), false);
-                }
-            </code>
-            </pre>
+
         </div>
     </div>
 </template>

@@ -37,9 +37,7 @@
     </div>
 </template>
 <script>
-import MockData from "../mock/index.js";
 import echarts from "echarts";
-MockData.bootstrap();
 export default {
     data() {
         return {
