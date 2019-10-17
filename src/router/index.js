@@ -10,7 +10,8 @@ let routerMap = [
     ["/log", "log"],
     ["/chart", "chart"],
     ["/spider", "spider"],
-    ["/menu", "menu"]
+    ["/menu", "menu"],
+    ["/role", "role"]
 ];
 Vue.use(Router)
 var routerList = [{
