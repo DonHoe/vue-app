@@ -1,39 +1,40 @@
 <template>
     <el-container style="height: 100%;">
         <el-header height="">
-            <el-form :inline="true" :model="searchModel" size="mini" label-width="100px">
+            <el-form :inline="true" :model="searchModel" size="mini" label-width="80px" label-position="left" label-suffix=":">
                 <el-form-item label="角色">
-                    <el-input v-model="searchModel.roleName" class="input"></el-input>
+                    <el-input v-model="searchModel.roleName" class="query-width"></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
-                    <el-input v-model="searchModel.roleKey" class="input"></el-input>
+                    <el-input v-model="searchModel.roleKey" class="query-width"></el-input>
                 </el-form-item>
                 <el-form-item label="">
-                    <el-button @click="getRoleList()">查询</el-button>
+                    <el-button size="mini" title="" icon="el-icon-search" @click="getRoleList()">查询</el-button>
+                    <el-button size="mini" title="" icon="el-icon-plus" @click="addRole()">新增</el-button>
                 </el-form-item>
             </el-form>
         </el-header>
         <el-container>
             <el-main>
-                <el-table :data="roleList" row-key="id" stripe border size="small" style="width: 100%">
+                <el-table :data="roleList" row-key="id" stripe border size="small" style="">
                     <el-table-column prop="roleName" label="角色名" width="180">
                     </el-table-column>
                     <el-table-column prop="roleKey" label="角色键" width="180">
                     </el-table-column>
-                    <el-table-column prop="columnComment" label="操作" width="250">
+                    <el-table-column prop="columnComment" label="操作">
                         <template slot-scope="scope">
                             <el-button size="mini" title="编辑" icon="el-icon-edit-outline" @click="editRole(scope.row)"></el-button>
                             <el-button size="mini" type="danger" title="删除" icon="el-icon-delete" @click="confirmDelete(scope.row)"></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-dialog title="菜单" :visible.sync="dialogTableVisible" width="30%" :close-on-click-modal="false">
+                <el-dialog title="角色" :visible.sync="dialogTableVisible" width="30%" :close-on-click-modal="false">
                     <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small">
                         <input type="hidden" v-model="roleModel.id" />
-                        <el-form-item label="菜单名称">
+                        <el-form-item label="角色名称">
                             <el-input v-model="roleModel.roleName"></el-input>
                         </el-form-item>
-                        <el-form-item label="路径">
+                        <el-form-item label="角色键">
                             <el-input v-model="roleModel.roleKey"></el-input>
                         </el-form-item>
                         <el-form-item>
@@ -45,6 +46,8 @@
         </el-container>
     </el-container>
 </template>
+<style>
+</style>
 <script>
 export default {
     data() {
@@ -54,7 +57,7 @@ export default {
             emptyRole: {
                 id: 0,
                 roleName: "",
-                roleKey: "",
+                roleKey: ""
             },
             columnData: [],
             searchModel: {},
@@ -80,7 +83,7 @@ export default {
         addRole: function() {
             var that = this;
             that.roleModel = Object.assign({}, that.emptyRole);
-        
+
             that.dialogTableVisible = true;
         },
         editRole: function(row) {
