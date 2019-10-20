@@ -38,6 +38,10 @@
                             <el-input v-model="roleModel.roleKey"></el-input>
                         </el-form-item>
                         <el-form-item>
+                            <el-tree :data="menuData" show-checkbox node-key="id" :default-checked-keys="menuIds" :props="{children: 'children',label: 'menuName'}">
+                            </el-tree>
+                        </el-form-item>
+                        <el-form-item>
                             <el-button type="primary" @click="saveRole()">保存</el-button>
                         </el-form-item>
                     </el-form>
@@ -59,7 +63,8 @@ export default {
                 roleName: "",
                 roleKey: ""
             },
-            columnData: [],
+            menuData: [],
+            menuIds: [],
             searchModel: {},
             dialogTableVisible: false
         };
@@ -67,6 +72,7 @@ export default {
     created: function() {
         var that = this;
         that.getRoleList();
+        that.getMenuList();
     },
     methods: {
         getRoleList() {
@@ -80,21 +86,48 @@ export default {
                     window.console.log(err);
                 });
         },
+        getMenuList() {
+            var that = this;
+            this.$ajax
+                .get(this.$baseUrl + "/system/getMenuList")
+                .then(function(response) {
+                    that.menuData = response.data.result;
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
+        getMenuIdByRoleId(roleId) {
+            var that = this;
+            this.$ajax
+                .get(
+                    this.$baseUrl + "/system/getMenuIdByRoleId?roleId=" + roleId
+                )
+                .then(function(response) {
+                    that.menuIds = response.data.result;
+                })
+                .catch(function(err) {
+                    window.console.log(err);
+                });
+        },
         addRole: function() {
             var that = this;
             that.roleModel = Object.assign({}, that.emptyRole);
-
+            that.menuIds = [];
             that.dialogTableVisible = true;
         },
         editRole: function(row) {
             var that = this;
             that.roleModel = Object.assign({}, row);
+            that.getMenuIdByRoleId(row.id);
             that.dialogTableVisible = true;
         },
         saveRole() {
             var that = this;
+            var requestData = Object.assign({},that.roleModel);
+            requestData.menuIds = that.menuIds;
             this.$ajax
-                .post(this.$baseUrl + "/system/saveRole", that.roleModel)
+                .post(this.$baseUrl + "/system/saveRole", that.requestData)
                 .then(function(response) {
                     if (response.data.code == 1000) {
                         that.$message({
