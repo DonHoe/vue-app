@@ -28,7 +28,7 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-dialog title="角色" :visible.sync="dialogTableVisible" width="30%" :close-on-click-modal="false">
+                <el-dialog title="角色" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
                     <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small">
                         <input type="hidden" v-model="roleModel.id" />
                         <el-form-item label="角色名称">
@@ -38,7 +38,7 @@
                             <el-input v-model="roleModel.roleKey"></el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-tree :data="menuData" show-checkbox node-key="id" :default-checked-keys="menuIds" :props="{children: 'children',label: 'menuName'}">
+                            <el-tree ref="tree" :data="menuTreeData" show-checkbox node-key="id" :props="{children: 'children',label: 'menuName'}">
                             </el-tree>
                         </el-form-item>
                         <el-form-item>
@@ -64,7 +64,7 @@ export default {
                 roleKey: ""
             },
             menuData: [],
-            menuIds: [],
+            menuTreeData: [],
             searchModel: {},
             dialogTableVisible: false
         };
@@ -92,6 +92,7 @@ export default {
                 .get(this.$baseUrl + "/system/getMenuList")
                 .then(function(response) {
                     that.menuData = response.data.result;
+                    that.menuTreeData = [].concat(that.menuData);
                 })
                 .catch(function(err) {
                     window.console.log(err);
@@ -104,7 +105,7 @@ export default {
                     this.$baseUrl + "/system/getMenuIdByRoleId?roleId=" + roleId
                 )
                 .then(function(response) {
-                    that.menuIds = response.data.result;
+                    that.$refs.tree.setCheckedKeys(response.data.result);
                 })
                 .catch(function(err) {
                     window.console.log(err);
@@ -112,22 +113,26 @@ export default {
         },
         addRole: function() {
             var that = this;
+            that.menuTreeData = [].concat(that.menuData);
             that.roleModel = Object.assign({}, that.emptyRole);
-            that.menuIds = [];
             that.dialogTableVisible = true;
+            this.$nextTick(() => {
+                that.$refs.tree.setCheckedKeys([]);
+            });
         },
         editRole: function(row) {
             var that = this;
+            that.menuTreeData = [].concat(that.menuData);
             that.roleModel = Object.assign({}, row);
-            that.getMenuIdByRoleId(row.id);
             that.dialogTableVisible = true;
+            that.getMenuIdByRoleId(row.id);
         },
         saveRole() {
             var that = this;
-            var requestData = Object.assign({},that.roleModel);
-            requestData.menuIds = that.menuIds;
+            var requestData = Object.assign({}, that.roleModel);
+            requestData.menuIds = that.$refs.tree.getCheckedKeys();
             this.$ajax
-                .post(this.$baseUrl + "/system/saveRole", that.requestData)
+                .post(this.$baseUrl + "/system/saveRole", requestData)
                 .then(function(response) {
                     if (response.data.code == 1000) {
                         that.$message({
